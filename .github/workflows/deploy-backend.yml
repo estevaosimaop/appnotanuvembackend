@@ -1,4 +1,4 @@
-name: Build and Push Container
+name: Build and Push Node22 Container
 
 on:
   push:
@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
+      - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build and Push Image
+      - name: Build and Push
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/api-backend:latest .
-          docker push ghcr.io/${{ github.repository }}/api-backend:latest
+          docker build -t ghcr.io/${{ github.repository }}/backend-node22:latest .
+          docker push ghcr.io/${{ github.repository }}/backend-node22:latest
