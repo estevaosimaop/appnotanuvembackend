@@ -20,5 +20,11 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/backend-node22:latest .
-          docker push ghcr.io/${{ github.repository }}/backend-node22:latest
+          # Isso garante que o nome do usuário fique em minúsculo
+          USER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          
+          # Vamos usar um nome de imagem mais simples e direto
+          IMAGE_NAME="ghcr.io/$USER_LOWER/backend-node22:latest"
+          
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
